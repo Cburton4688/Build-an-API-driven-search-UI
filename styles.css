@@ -44,7 +44,6 @@ h1 {
   font-size: 1rem;
 }
 
-/* Search bar */
 .search-bar {
   display: flex;
   gap: 10px;
@@ -84,7 +83,6 @@ h1 {
   opacity: 0.85;
 }
 
-/* Status message */
 .status {
   font-size: 0.9rem;
   color: var(--muted);
@@ -96,25 +94,38 @@ h1 {
   color: var(--accent);
 }
 
-/* Results grid */
 .results {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
 }
 
-/* Card */
 .card {
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
+  cursor: pointer;
   transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .card:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.card.expanded {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-start;
+  transform: none;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+}
+
+.card.expanded img {
+  width: 260px;
+  height: 260px;
+  flex-shrink: 0;
 }
 
 .card img {
@@ -146,4 +157,48 @@ h1 {
   padding: 2px 7px;
   margin-right: 4px;
   margin-top: 2px;
+}
+
+.card-details {
+  display: none;
+  margin-top: 14px;
+}
+
+.card.expanded .card-details {
+  display: block;
+}
+
+.details-label {
+  font-weight: 500;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+
+.ingredients {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0;
+}
+
+.ingredients li {
+  font-size: 0.82rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+
+.instructions {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--text);
+  white-space: pre-line;
+  max-height: 200px;
+  overflow-y: auto;
 }

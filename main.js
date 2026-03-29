@@ -39,16 +39,43 @@ async function runSearch() {
 
     status.textContent = `Found ${data.meals.length} result${data.meals.length !== 1 ? "s" : ""}.`;
 
-    results.innerHTML = data.meals.map(meal => `
-      <div class="card">
-        <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
-        <div class="card-body">
-          <h3>${meal.strMeal}</h3>
-          <span class="tag">${meal.strCategory}</span>
-          <span class="tag">${meal.strArea}</span>
+    results.innerHTML = data.meals.map(meal => {
+      const ingredients = [];
+      for (let i = 1; i <= 20; i++) {
+        const ingredient = meal[`strIngredient${i}`];
+        const measure = meal[`strMeasure${i}`];
+        if (ingredient && ingredient.trim()) {
+          ingredients.push(`${measure ? measure.trim() + " " : ""}${ingredient.trim()}`);
+        }
+      }
+
+      return `
+        <div class="card" data-id="${meal.idMeal}">
+          <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
+          <div class="card-body">
+            <h3>${meal.strMeal}</h3>
+            <span class="tag">${meal.strCategory}</span>
+            <span class="tag">${meal.strArea}</span>
+            <div class="card-details">
+              <p class="details-label">Ingredients</p>
+              <ul class="ingredients">
+                ${ingredients.map(i => `<li>${i}</li>`).join("")}
+              </ul>
+              <p class="details-label">Instructions</p>
+              <p class="instructions">${meal.strInstructions}</p>
+            </div>
+          </div>
         </div>
-      </div>
-    `).join("");
+      `;
+    }).join("");
+
+    results.querySelectorAll(".card").forEach(card => {
+      card.addEventListener("click", function () {
+        const isOpen = this.classList.contains("expanded");
+        results.querySelectorAll(".card").forEach(c => c.classList.remove("expanded"));
+        if (!isOpen) this.classList.add("expanded");
+      });
+    });
 
   } catch (error) {
     status.textContent = "Something went wrong. Please try again.";
