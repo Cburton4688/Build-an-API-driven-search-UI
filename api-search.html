@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meal Search</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/api-search.css" />
+</head>
+<body>
+
+  <div class="page-wrapper">
+    <header>
+      <h1>Meal Search</h1>
+      <p class="subtitle">Type a meal name and see what comes up.</p>
+    </header>
+
+    <div class="search-bar">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="e.g. chicken, pasta, sushi..."
+        autocomplete="off"
+      />
+      <button id="searchBtn">Search</button>
+    </div>
+
+    <p id="status" class="status" aria-live="polite"></p>
+
+    <div id="results" class="results"></div>
+  </div>
+
+  <script src="js/api-search.js"></script>
+</body>
+</html>
