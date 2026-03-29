@@ -3,7 +3,6 @@ const searchInput = document.getElementById("searchInput");
 const status = document.getElementById("status");
 const results = document.getElementById("results");
 
-// Run search when button is clicked or Enter is pressed
 searchBtn.addEventListener("click", runSearch);
 searchInput.addEventListener("keydown", function (e) {
   if (e.key === "Enter") runSearch();
@@ -12,7 +11,6 @@ searchInput.addEventListener("keydown", function (e) {
 async function runSearch() {
   const term = searchInput.value.trim();
 
-  // Handle blank input
   if (!term) {
     status.textContent = "Please enter a meal name to search.";
     status.classList.remove("error");
@@ -20,7 +18,6 @@ async function runSearch() {
     return;
   }
 
-  // Show loading state
   status.textContent = "Loading...";
   status.classList.remove("error");
   results.innerHTML = "";
@@ -35,16 +32,13 @@ async function runSearch() {
 
     const data = await response.json();
 
-    // Handle no results
     if (!data.meals) {
       status.textContent = `No meals found for "${term}". Try something else.`;
       return;
     }
 
-    // Show result count
     status.textContent = `Found ${data.meals.length} result${data.meals.length !== 1 ? "s" : ""}.`;
 
-    // Render cards
     results.innerHTML = data.meals.map(meal => `
       <div class="card">
         <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
